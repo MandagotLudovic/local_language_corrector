@@ -1,0 +1,141 @@
+body {
+    background-color: whitesmoke;
+}
+section {
+    /* On centre le formulaire */
+    margin: 0 auto;
+    /* Le contour du formulaire */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+section li+li {
+    margin-top: 1em;
+}
+
+label {
+    /* Taille et alignement uniformes */
+    width: 90px;
+}
+
+input,
+textarea {
+    background-color: white;
+    outline-style: none;
+    font: 1em sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.2rem;
+    padding: 0.5rem 0.5rem;
+}
+
+input:focus,
+textarea:focus {
+    /* On rajoute une mise en avant pour les éléments avec
+     le focus. */
+     border: 1px solid #17a2b8;
+     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+textarea {
+    /* On aligne les textes sur plusieurs lignes avec leur
+     libellé. */
+    vertical-align: top;
+
+    /* On fournit un peut d'espace pour saisir du texte. */
+    height: 5em;
+
+    /* On permet de redimensionner verticalement. */
+    resize: vertical;
+}
+
+button {
+    background-color: #003dcd;
+    color: white;
+    border-radius: 0.5rem;
+    margin: 1rem;
+    width: 200px;
+    padding: 0.5rem;
+    /* Une marge supplémentaire représentant approximativement
+     le même espace qu'entre les libellés et les champs. */
+    margin-left: 0.5em;
+}
+
+.centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#NoCorrectedTextAvalaible{
+    display: visible;
+}
+
+.hidden {
+  display: none;
+}
+
+#saveWebhookUrlBtn {
+    background: no-repeat url("../icons/save.png") center;
+    background-size: 1rem;
+    background-color: white;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-bottom-left-radius: 0 ;
+    border-top-left-radius: 0 ;
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(0, 123, 255, 0.25);
+    }
+}
+
+.input {
+    display: flex;
+    border: solid 1px;
+    border-radius: 0.2rem;
+    align-items: center;
+    
+    & > input {
+        &:focus {
+            box-shadow: none;
+            
+        }
+        border: 0;
+    }
+    
+}
+.shine {
+    border: 1px solid #17a2b8;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.loading {
+    pointer-events: none;
+    background: no-repeat url("../icons/loading.png") center;
+    background-size: 1rem;
+    width: 40px;
+    height: 40px;
+    animation: rotation 2s infinite linear;
+    border: 0;
+
+}
+
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}

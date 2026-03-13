@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "myFrenchCorrector",
+  "version": "1.0",
+  "description": "Extension de correction de text lié à un workflow n8n local.",
+  "icons": {
+    "48": "icons/grammar.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "browser_action": {
+    "default_icon": "icons/grammar.png",
+    "default_title": "Beastify",
+    "default_popup": "popup/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.mozilla.org/*"
+      ],
+      "js": [
+        "browser-polyfill.js"
+      ]
+    }
+  ]
+}

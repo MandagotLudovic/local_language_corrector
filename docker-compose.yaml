@@ -1,0 +1,56 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: my_agent_ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu, compute, utility] 
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - OLLAMA_NUM_GPU=99
+      - OLLAMA_MAX_LOADED_MODELS=1
+    runtime: nvidia
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  n8n:
+    image: n8nio/n8n
+    container_name: my_agent_n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - GENERIC_TIMEZONE="Europe/Paris"
+      - TZ="Europe/Paris"
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_HOST=localhost
+      - N8N_PORT=5678
+      - N8N_EDITOR_BASE_URL=http://localhost:5678
+      - WEBHOOK_URL=http://localhost:5678
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+    restart: unless-stopped
+    volumes:
+      - n8n_data:/home/node/.n8n
+  languagetool:
+    image: silviof/docker-languagetool:latest
+    container_name: my_agent_languagetool
+    restart: unless-stopped
+    ports:
+      - "8010:8010"
+    environment:
+      - Java_Xms=512m
+      - Java_Xmx=1g
+    volumes:
+      - languagetool_data:/home/node/.languagetool
+
+volumes:
+  ollama_data:
+  n8n_data:
+  languagetool_data:

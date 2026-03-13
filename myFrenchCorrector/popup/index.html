@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="application/javascript" src="./browser-pollyfill.js" defer></script>
+    <script type="application/javascript" src="./myFrenchCorrector.js" defer></script>
+    <title>My French Corrector</title>
+</head>
+
+<body>
+    <section id="textToCorrect">
+        <h2>
+            My French Corrector
+        </h2>
+        <ul>
+            <li>
+                <label for="webhook_url">URL Webhook</label>
+                <div id="inputWebhook" class="input">
+                    <input type="text" name="webhook_url"></input>
+                    <input type="button" id="saveWebhookUrlBtn"></input>
+                </div>
+            </li>
+            <li>
+                <label for="user_text">Text à corriger :</label>
+                <textarea type="text" name="user_text"></textarea>
+            </li>
+            <li class="centered">
+                <button id="sendButton" onclick="sendText()">Corriger</button>
+            </li>
+        </ul>
+
+    </section>
+    <hr />
+    <section id="NoCorrectedTextAvalaible">
+        <p>
+            no correction available
+        </p>
+    </section>
+    <section class="hidden" id="CorrectedTextAvalaible">
+        <p>
+            Voici une proposition de correction :
+        </p>
+        <textarea id="correctedText"></textarea>
+
+    </section>
+</body>
+
+</html>

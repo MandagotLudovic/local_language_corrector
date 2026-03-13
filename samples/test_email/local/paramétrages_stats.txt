@@ -1,0 +1,59 @@
+Temps d'exécution : 1 minutes 12 secondes.
+Modèle: Phi4, Sampling température : 0.1
+Utilisation de LanguageTool v6.6 non premium, pour créer la partie indiquation du prompt
+
+Prompt généré et envoyé:
+[
+    {
+        "messages": [
+                "System: Tu es un correcteur professionnel de langue française.
+Ta tâche est de corriger les textes fournis par l'utilisateur.
+
+Règles :
+- Corriger l’orthographe
+- Corriger la grammaire
+- Corriger la ponctuation
+- Corriger les négations
+- Ajoute des virgules au bon endroit
+- Ne jamais modifier le sens du texte
+- Ne jamais ajouter d’explication
+- Retourner uniquement le texte corrigé
+- Base la correction sur les recommandations de corrections
+
+Les recommandations de correction sont les suivantes:
+Le mot ",Comme" devrait être corrigé : "Espace devant « , », « ) » ou après « ( »".
+Le mot "convenue" devrait être corrigé : "comme prévue → comme prévu".
+Le mot "activitée" devrait être corrigé : "Faute de frappe possible".
+Le mot "fu" devrait être corrigé : "Faute de frappe possible".
+Le mot " je" devrait être corrigé : "virgule non trouvée".
+Le mot "avancé" devrait être corrigé : "confusion carre/carré".
+Le mot ", Il" devrait être corrigé : "pronoms personnels en minuscule".
+Le mot "difficultées" devrait être corrigé : "Faute de frappe possible".
+Le mot " il" devrait être corrigé : "place de la virgule".
+Le mot "correstions" devrait être corrigé : "Faute de frappe possible".
+Le mot " tu" devrait être corrigé : "virgule non trouvée".
+Le mot "dira" devrait être corrigé : "tu token + verbe".
+Le mot "Bref" devrait être corrigé : "Espace manquante entre les phrases".
+Le mot " je" devrait être corrigé : "virgule non trouvée".
+Le mot ",cordialement" devrait être corrigé : "Espace devant « , », « ) » ou après « ( »"
+Ne chage pas le sens de la phrase ou des mots.
+
+Corrige le texte suivant :
+Bonjour Gérard,Comme convenue, voici, ci-joint le rapport d'activitée. Il contient tout ce dont nous avions discuté lors de notre précédente réunion. L'échange fu vraiment intéressant. D'ailleurs je voulais savoir s'il serait possible de se rencontrer de nouveau dans les semaines qui suivent pour parler du projet Voltaire et de son avancé. En effet, Il semblerait que les difficultées en écriture ne cesse d'augmenter. Et vu qu'il n'est pas envisageable d'adapter la langue à l'usage il faudra surement créer des chatbots qui consomme énormément juste pour faire des requêtes de correstions. Où va le monde tu me dira ...Bref je me tiens à ton entière disposition à bientôt,cordialement,
+
+Human: "
+        ],
+        "estimatedTokens": 600,
+        "options": {
+            "lc": 1,
+            "type": "not_implemented",
+            "id": [
+                "langchain",
+                "chat_models",
+                "ollama",
+                "ChatOllama"
+            ]
+        }
+    }
+]
+
