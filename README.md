@@ -11,7 +11,7 @@ Docker installed
 The Phi4 model is used in the workflow. You have to check if your pc configuration is compatible.
 
 ## Installation
-### setup
+### Setup
 ```sh
 docker compose up -d
 ```
@@ -22,9 +22,17 @@ Enter in ollama docker with bash.
 docker exec -it my_agent_ollama bash
 ```
 Download model in it:
-```
+```sh
 ollama pull phi4
 ```
+
+### Import workflow in n8n
+1. Go to http://localhost:5678/
+2. Create credential for Ollama with this Base Url "http://my_agent_ollama:11434"
+3. Create new Workflow
+4. In this workflow use "import from file"
+5. select config_n8n.json
+6. Publish it
 
 ## How to use it
 You can install the extension, or use it througth this endpoint:
