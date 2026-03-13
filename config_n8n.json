@@ -1,0 +1,162 @@
+{
+  "name": "Correcteur d'orthographe",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=",
+        "options": {
+          "systemMessage": "=Tu es un correcteur professionnel de langue française.\nTa tâche est de corriger les textes fournis par l'utilisateur.\n\nRègles :\n- Corriger l’orthographe\n- Corriger la grammaire\n- Corriger la ponctuation\n- Corriger les négation\n- Ajoute des virgules au bon endroit\n- Ne jamais modifier le sens du texte\n- Ne jamais ajouter d’explication\n- Retourner uniquement le texte corrigé\n- Base la correction sur les recommandations de corrections\n\nLes recommandation de correction sont les suivantes:\n{{ $json.correction_hint }}\nNe chage pas le sens de la phrase ou des mots.\n\nCorrige le texte suivant :\n{{ $json.user_message }}\n\n\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        672,
+        0
+      ],
+      "id": "03514921-a392-48f5-8e53-b8e61971bd59",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "phi4",
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        448,
+        192
+      ],
+      "id": "7d9e62d3-24db-4205-b60a-101b1ba64ca1",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "KpB8iUa90lTfEnf8",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "http://my_agent_languagetool:8010/v2/check",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "language",
+              "value": "fr"
+            },
+            {
+              "name": "text",
+              "value": "={{ $json.query.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "35d34979-463b-4ae1-a203-a661456cfd4e",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "let text = $('Webhook').first().json.query.text\nlet matches = $input.first().json.matches;\n\nconst correction_hint = matches.map((hint) => {\n  const context = hint.context;\n  return `Le mot \"${context.text.slice(context.offset, context.offset+context.length)}\" devrait être corrigé : \"${hint.rule.description}\"`;\n  \n})\n\nreturn [{ user_message: text, correction_hint: correction_hint.join(\".\") }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        0
+      ],
+      "id": "1acd54a7-d13b-427a-b6ea-c84bb28e676a",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "path": "check",
+        "responseMode": "lastNode",
+        "options": {
+          "allowedOrigins": "*"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -64,
+        0
+      ],
+      "id": "4b50c56c-9574-42a7-92d7-90fc4bb5008f",
+      "name": "Webhook",
+      "webhookId": "7762908f-583b-430f-a035-e38be19b27f2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f880935e-811d-4180-a33e-b7f907e65b09",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "37a9b231eda99713c99ea87fb67a93a561f5dd7e5cf34951561251a6136c2d95"
+  },
+  "id": "QSsz7bLe7lhCkFNc",
+  "tags": []
+}
